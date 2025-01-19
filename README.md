@@ -1,7 +1,7 @@
 # VM-Creation-In-Foreman-Using-Ansible-Playbook
 Automate VM creation in Foreman using Ansible playbook
 
-Here we will create multiple VMs in foreman using ansible by parsing VM metadata information in CSV.
+Here we will create multiple VMs in foreman using ansible by parsing VM metadata information in CSV format.
 VM Metadata information includes vm name, hostgroup, Subnet, IP, CPU, Memory and Network VLAN ID
 
 Example of CSV Files. Header of this file should not be change.
@@ -14,3 +14,21 @@ Example of CSV Files. Header of this file should not be change.
 | 	ansible_client1.lab.io	| 	LARGE_Centos8		| 	192.168.101.113	 | LAB01 |   6 | 8192   | vm-net-55 |
 | 	ansible_client1.lab.io	| 	LARGE_Centos8		| 	192.168.101.114	 | LAB01 |   4 |  8192  | vm-net-55 |
 | 	ansible_client1.lab.io	| 	LARGE_Centos8		| 	192.168.101.115	 | LAB01 |   4 |  8192  | vm-net-55 |
+
+# To Create Multiple VMs from csv file
+   
+   $ ansible-playbook foreman_vm_create.yaml -t Create_VM
+
+# To delete Multiple VMs from csv file
+
+   $ ansible-playbook foreman_vm_create.yaml -t Delete_VM
+
+# To list ansible tags in playbook
+
+   $ ansible-playbook foreman_vm_create.yaml --list-tags
+
+# Demo playbook running
+
+  $ ansible-playbook foreman_vm_create.yaml  -t Create_VM
+  
+  Enter the path of CSV file of VMs. Exa: /home/dushyantk/vm.csv: 
