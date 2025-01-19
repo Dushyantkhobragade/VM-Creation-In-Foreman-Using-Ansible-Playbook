@@ -1,0 +1,68 @@
+---
+- hosts: localhost
+  connection: local
+  
+  vars:
+    foreman_url: https://foreman.lab.io
+    username: dushyantk
+    password: 11223334444
+
+  vars_prompt:
+    - name: CSV_PATH
+      prompt: "Enter the path of CSV file of VMs. Exa: /home/dushyantk/vm.csv"
+      private: no
+
+  tasks:
+    - name: Read VM metada information
+      read_csv:
+        path: "{{ CSV_PATH }}"
+      register: vm_metadata
+      delegate_to: localhost
+      tags: always
+
+    - name: Display VM Metadata information
+      debug: 
+        var: vm_metadata.list
+      tags: always  
+
+    - name: Review VM Metadata Information Before Moving to Next task of Deletion of VM
+      pause:
+        prompt: Do you want to continue! Press return to continue. Press Ctrl+c and then "a" to abort.
+      tags: always
+
+    - name: Delete Host from Oracle KVM
+      theforeman.foreman.host:
+        username: "{{ username }}"
+        password: "{{ password }}"
+        server_url: "{{ foreman_url }}"
+        validate_certs: "false"
+        name: "{{ item.HOSTNAME }}"
+        state: absent
+      loop: "{{ vm_metadata.list }}"
+      tags: Delete_VM
+
+    - name: Create VM in Foreman on Oracle KVM Hypervisor
+      theforeman.foreman.host:
+        username: "{{ username }}"
+        password: "{{ password }}"
+        server_url: "{{ foreman_url }}"
+        validate_certs: "false"
+        location: "Default Location"
+        organization: "Default Organization"
+        name: "{{ item.HOSTNAME }}"
+        hostgroup: "{{ item.HOSTGROUP }}"
+        compute_attributes:
+          cpus: "{{ item.CPU }}"
+          memory_mb: "{{ item.MEMORY }}"
+          start: "1"
+        interfaces_attributes:
+          - type: "interface"
+            compute_attributes:
+              name: "{{ item.VMNET}}"
+              subnet: "{{ item.SUBNET }}"
+              network: "{{ item.VMNET}}"
+        build: true
+        managed: true
+        state: present
+      loop: "{{ vm_metadata.list }}"
+      tags: Create_VM
