@@ -1,4 +1,4 @@
-# VM-Creation-In-Foreman-Using-Ansible-Playbook
+# Automate-VM-Creation-In-Foreman-Using-Ansible-Playbook
 Automate VM creation in Foreman using Ansible playbook
 
 Here we will create multiple VMs in foreman using ansible by parsing VM metadata information in CSV format.
