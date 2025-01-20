@@ -65,5 +65,7 @@
         build: true
         managed: true
         state: present
+      async: 20
+      poll: 0
       loop: "{{ vm_metadata.list }}"
       tags: Create_VM
