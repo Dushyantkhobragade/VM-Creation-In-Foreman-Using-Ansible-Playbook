@@ -9,7 +9,7 @@ Example of CSV Files. Header of this file should not be change.
 ###### Rendered Output: 
 | 	HOSTNAME	 | 	HOSTGROUP	 | 	IP	 | SUBNET	 | 	CPU | 	MEMORY_IN_BYTES	 | 	VMNET	 |
 | 	:-----:	 | 	:-----:	 | 	:-----:	 | 	:-----:	 | 	:-----:	 | 	:-----:	 | :-----:	 |
-| 	ansible_client1.lab.io	| 	LARGE_Centos8	| 	192.168.101.111	 | LAB01 |  4  |8192| vm-net-55 |
+| 	ansible_client1.lab.io	| 	LARGE_Centos8	| 	192.168.101.111	 | LAB01 |  4  | 4294967296 | vm-net-55 |
 | 	ansible_client1.lab.io	| 	LARGE_Centos8		| 	192.168.101.112	 | LAB01 |  2  | 4294967296   | vm-net-55 |
 | 	ansible_client1.lab.io	| 	LARGE_Centos8		| 	192.168.101.113	 | LAB01 |   6 | 8589934592   | vm-net-55 |
 | 	ansible_client1.lab.io	| 	LARGE_Centos8		| 	192.168.101.114	 | LAB01 |   4 |  4294967296  | vm-net-55 |
