@@ -53,7 +53,7 @@
         hostgroup: "{{ item.HOSTGROUP }}"
         compute_attributes:
           cpus: "{{ item.CPU }}"
-          memory_mb: "{{ item.MEMORY }}"
+          memory: "{{ item.MEMORY_IN_BYTES }}"
           start: "1"
         interfaces_attributes:
           - type: "interface"
@@ -61,6 +61,7 @@
               name: "{{ item.VMNET}}"
               subnet: "{{ item.SUBNET }}"
               network: "{{ item.VMNET}}"
+        ip: "{{ item.IP }}"
         build: true
         managed: true
         state: present
