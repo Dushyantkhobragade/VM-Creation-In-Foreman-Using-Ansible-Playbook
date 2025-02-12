@@ -1,0 +1,43 @@
+---
+- hosts: localhost
+  connection: local
+  
+  vars:
+    foreman_url: "https://foreman.lab.io"
+    username: "dushyant"
+    password: "1234566"
+
+  vars_prompt:
+    - name: CSV_PATH
+      prompt: "Enter the path of CSV file of VMs. Exa: /home/dushyantk/vm.csv"
+      private: false
+
+  tasks:
+    - name: Read VM metada information
+      read_csv:
+        path: "{{ CSV_PATH }}"
+      register: vm_metadata
+      delegate_to: localhost
+
+    - name: Display VM Metadata information
+      debug:
+        var: vm_metadata.list
+
+    - name: Review VM Information Before Moving to Next task of Resetting VM
+      pause:
+        prompt: Did you Review VM Information Before Moving to Next task of Resetting VM?. Do you want to continue! Press return to continue. Press Ctrl+c and then "a" to abort.
+
+    - name: Reset/Reboot Host in Oracle KVM
+      theforeman.foreman.host_power:
+        username: "{{ username }}"
+        password: "{{ password }}"
+        server_url: "{{ foreman_url }}"
+        validate_certs: "false"
+        hostname: "{{ item.HOSTNAME }}"
+        state: reset
+      loop: "{{ vm_metadata.list }}"
+      async: 360
+      register: result_reset
+
+    - debug:
+        msg: "Host power state is {{ result_reset.power_state }}"
