@@ -22,12 +22,16 @@ Example of CSV Files. Header of this file should not be change.
 # 2. To delete Multiple VMs from csv file
 
     $ ansible-playbook foreman_vm_create.yaml -t Delete_VM
+    
+# 3. To delete Multiple VMs from csv file
 
-# 3. To list ansible tags in playbook
+    $ ansible-playbook foreman_vm_create.yaml -t Delete_VM
+
+# 4. To list ansible tags in playbook
 
     $ ansible-playbook foreman_vm_create.yaml --list-tags
 
-# 4. Demo playbook running
+# 5. Demo playbook running
 
     $ ansible-playbook foreman_vm_create.yaml  -t Create_VM
   
