@@ -39,5 +39,6 @@
       async: 360
       register: result_reset
 
-    - debug:
+    - name: Print Rebooted VMs
+      debug:
         msg: "Host power state is {{ result_reset.power_state }}"
